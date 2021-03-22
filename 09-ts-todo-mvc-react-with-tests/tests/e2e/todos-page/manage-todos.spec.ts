@@ -65,8 +65,6 @@ function deleteTodoItem() {
   cy.get('[data-test-id=todo-item__remove-action]').click({ force: true });
 
   cy.wait('@deleteTodo')
-
-  cy.get('[data-test-id=todo-item]').should('not.exist');
 }
 
 describe('Manage Todos', () => {
@@ -95,6 +93,10 @@ describe('Manage Todos', () => {
       cy.get('[data-test-id=todo-item__remove-action]').should('be.visible');
 
       deleteTodoItem()
+
+      cy.get('[data-test-id=todo-item__remove-action]').should('not.exist')
+      cy.get('[data-test-id=todo-item__text-input]').should('not.exist')
+      cy.get('[data-test-id=todo-item]').should('not.exist');
     });
   });
 });
