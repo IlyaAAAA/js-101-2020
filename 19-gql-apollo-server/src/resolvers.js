@@ -49,6 +49,34 @@ const resolvers = {
       };
       libraries.push(newLibrary);
       return libraries;
+    },
+
+    addBook(_, { title, authorId }) {
+
+      const date = new Date().toISOString().slice(0, 10)
+
+      const newBook = {
+        id: (parseInt(books[books.length - 1].id, 10) + 1).toString(10),
+        title: title,
+        author_id: authorId,
+        publicationDate: date
+      };
+
+      books.push(newBook);
+
+      return books;
+    },
+
+    updateBookTitle(_, { id, newTitle }) {
+
+      if (newTitle.length > 0) {
+        const book = books.find(book => book.id === id);
+        if (book) {
+          book.title = newTitle;
+        }
+      }
+
+      return books;
     }
   }
 };
